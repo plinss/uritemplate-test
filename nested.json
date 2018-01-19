@@ -1,0 +1,210 @@
+{
+  "Nested Structures" :
+  {
+    "level": 5,
+    "variables": {
+       "list"         : ["one", "two", "three", "four"],
+       "keys"         : {"semi": ";", "dot": ".", "comma": ","},
+       "nested_lists" : [["one", "two"], ["three"], "four"],
+       "nested_keys"  : {"one": {"semi": ";", "dot": "."}, "two": {"comma": ","}},
+       "mixed"        : {"list": ["one", ["two", "three"]], "keys": {"one": {"semi": ";", "dot": "."}, "two": {"comma": ","}}},
+       "list_keys"    : [{"semi": ";", "dot": "."}, {"comma": ","}]
+     },
+     "testcases" : [
+        ["{list}", "one,two,three,four"],
+        ["{list*}", "one,two,three,four"],
+        ["{?list}", "?list=one,two,three,four"],
+        ["{?list*}", "?list=one&list=two&list=three&list=four"],
+        ["{nested_lists}", "one,two,three,four"],
+        ["{nested_lists*}", "one,two,three,four"],
+        ["{?nested_lists}", "?nested_lists=one,two,three,four"],
+        ["{?nested_lists*}", "?nested_lists=one&nested_lists=two&nested_lists=three&nested_lists=four"],
+        ["{keys}", [
+          "comma,%2C,dot,.,semi,%3B",
+          "comma,%2C,semi,%3B,dot,.",
+          "dot,.,comma,%2C,semi,%3B",
+          "dot,.,semi,%3B,comma,%2C",
+          "semi,%3B,comma,%2C,dot,.",
+          "semi,%3B,dot,.,comma,%2C"
+        ]],
+        ["{keys*}", [
+          "comma=%2C,dot=.,semi=%3B",
+          "comma=%2C,semi=%3B,dot=.",
+          "dot=.,comma=%2C,semi=%3B",
+          "dot=.,semi=%3B,comma=%2C",
+          "semi=%3B,comma=%2C,dot=.",
+          "semi=%3B,dot=.,comma=%2C"
+        ]],
+        ["{?keys}", [
+          "?keys=comma,%2C,dot,.,semi,%3B",
+          "?keys=comma,%2C,semi,%3B,dot,.",
+          "?keys=dot,.,comma,%2C,semi,%3B",
+          "?keys=dot,.,semi,%3B,comma,%2C",
+          "?keys=semi,%3B,comma,%2C,dot,.",
+          "?keys=semi,%3B,dot,.,comma,%2C"
+        ]],
+        ["{?keys*}", [
+          "?comma=%2C&dot=.&semi=%3B",
+          "?comma=%2C&semi=%3B&dot=.",
+          "?dot=.&comma=%2C&semi=%3B",
+          "?dot=.&semi=%3B&comma=%2C",
+          "?semi=%3B&comma=%2C&dot=.",
+          "?semi=%3B&dot=.&comma=%2C"
+        ]],
+        ["{nested_keys}", [
+          "two.comma,%2C,one.dot,.,one.semi,%3B",
+          "two.comma,%2C,one.semi,%3B,one.dot,.",
+          "one.dot,.,two.comma,%2C,one.semi,%3B",
+          "one.dot,.,one.semi,%3B,two.comma,%2C",
+          "one.semi,%3B,two.comma,%2C,one.dot,.",
+          "one.semi,%3B,one.dot,.,two.comma,%2C"
+        ]],
+        ["{nested_keys*}", [
+          "two.comma=%2C,one.dot=.,one.semi=%3B",
+          "two.comma=%2C,one.semi=%3B,one.dot=.",
+          "one.dot=.,two.comma=%2C,one.semi=%3B",
+          "one.dot=.,one.semi=%3B,two.comma=%2C",
+          "one.semi=%3B,two.comma=%2C,one.dot=.",
+          "one.semi=%3B,one.dot=.,two.comma=%2C"
+        ]],
+        ["{?nested_keys}", [
+          "?nested_keys=two.comma,%2C,one.dot,.,one.semi,%3B",
+          "?nested_keys=two.comma,%2C,one.semi,%3B,one.dot,.",
+          "?nested_keys=one.dot,.,two.comma,%2C,one.semi,%3B",
+          "?nested_keys=one.dot,.,one.semi,%3B,two.comma,%2C",
+          "?nested_keys=one.semi,%3B,two.comma,%2C,one.dot,.",
+          "?nested_keys=one.semi,%3B,one.dot,.,two.comma,%2C"
+        ]],
+        ["{?nested_keys*}", [
+          "?two.comma=%2C&one.dot=.&one.semi=%3B",
+          "?two.comma=%2C&one.semi=%3B&one.dot=.",
+          "?one.dot=.&two.comma=%2C&one.semi=%3B",
+          "?one.dot=.&one.semi=%3B&two.comma=%2C",
+          "?one.semi=%3B&two.comma=%2C&one.dot=.",
+          "?one.semi=%3B&one.dot=.&two.comma=%2C"
+        ]],
+        ["{mixed}", [
+          "list.one,list.two,list.three,keys.two.comma,%2C,keys.one.dot,.,keys.one.semi,%3B",
+          "list.one,list.two,list.three,keys.two.comma,%2C,keys.one.semi,%3B,keys.one.dot,.",
+          "list.one,list.two,list.three,keys.one.dot,.,keys.two.comma,%2C,keys.one.semi,%3B",
+          "list.one,list.two,list.three,keys.one.dot,.,keys.one.semi,%3B,keys.two.comma,%2C",
+          "list.one,list.two,list.three,keys.one.semi,%3B,keys.two.comma,%2C,keys.one.dot,.",
+          "list.one,list.two,list.three,keys.one.semi,%3B,keys.one.dot,.,keys.two.comma,%2C"
+        ]],
+        ["{mixed*}", [
+          "list.one,list.two,list.three,keys.two.comma=%2C,keys.one.dot=.,keys.one.semi=%3B",
+          "list.one,list.two,list.three,keys.two.comma=%2C,keys.one.semi=%3B,keys.one.dot=.",
+          "list.one,list.two,list.three,keys.one.dot=.,keys.two.comma=%2C,keys.one.semi=%3B",
+          "list.one,list.two,list.three,keys.one.dot=.,keys.one.semi=%3B,keys.two.comma=%2C",
+          "list.one,list.two,list.three,keys.one.semi=%3B,keys.two.comma=%2C,keys.one.dot=.",
+          "list.one,list.two,list.three,keys.one.semi=%3B,keys.one.dot=.,keys.two.comma=%2C"
+        ]],
+        ["{?mixed}", [
+          "?mixed=list.one,list.two,list.three,keys.two.comma,%2C,keys.one.dot,.,keys.one.semi,%3B",
+          "?mixed=list.one,list.two,list.three,keys.two.comma,%2C,keys.one.semi,%3B,keys.one.dot,.",
+          "?mixed=list.one,list.two,list.three,keys.one.dot,.,keys.two.comma,%2C,keys.one.semi,%3B",
+          "?mixed=list.one,list.two,list.three,keys.one.dot,.,keys.one.semi,%3B,keys.two.comma,%2C",
+          "?mixed=list.one,list.two,list.three,keys.one.semi,%3B,keys.two.comma,%2C,keys.one.dot,.",
+          "?mixed=list.one,list.two,list.three,keys.one.semi,%3B,keys.one.dot,.,keys.two.comma,%2C"
+        ]],
+        ["{?mixed*}", [
+          "?list=one&list=two&list=three&keys.two.comma=%2C&keys.one.dot=.&keys.one.semi=%3B",
+          "?list=one&list=two&list=three&keys.two.comma,%2C&keys.one.semi=%3B&keys.one.dot=.",
+          "?list=one&list=two&list=three&keys.one.dot=.&keys.two.comma=%2C&keys.one.semi=%3B",
+          "?list=one&list=two&list=three&keys.one.dot=.&keys.one.semi=%3B&keys.two.comma=%2C",
+          "?list=one&list=two&list=three&keys.one.semi=%3B&keys.two.comma=%2C&keys.one.dot=.",
+          "?list=one&list=two&list=three&keys.one.semi=%3B&keys.one.dot=.&keys.two.comma=%2C"
+        ]],
+        ["{list_keys}", [
+          "dot,.,semi,%3B,comma,%2C",
+          "semi,%3B,dot,.,comma,%2C"
+        ]],
+        ["{list_keys*}", [
+          "dot=.,semi=%3B,comma=%2C",
+          "semi=%3B,dot=.,comma=%2C"
+        ]],
+        ["{?list_keys}", [
+          "?list_keys=dot,.,semi,%3B,comma,%2C",
+          "?list_keys=semi,%3B,dot,.,comma,%2C"
+        ]],
+        ["{?list_keys*}", [
+          "?list_keys.dot=.&list_keys.semi=%3B&list_keys.comma=%2C",
+          "?list_keys.semi=%3B&list_keys.dot=.&list_keys.comma=%2C"
+        ]]
+     ]
+  },
+  "Array Modifier" :
+  {
+    "level": 5,
+    "variables": {
+       "list"         : ["one", "two", "three", "four"],
+       "keys"         : {"semi": ";", "dot": ".", "comma": ","},
+       "nested_lists" : [["one", "two"], ["three"], "four"],
+       "nested_keys"  : {"one": {"semi": ";", "dot": "."}, "two": {"comma": ","}},
+       "mixed"        : {"list": ["one", ["two", "three"]], "keys": {"one": {"semi": ";", "dot": "."}, "two": {"comma": ","}}},
+       "list_keys"    : [{"semi": ";", "dot": "."}, {"comma": ","}]
+     },
+     "testcases" : [
+        ["{list[]}", "one,two,three,four"],
+        ["{?list[]}", "?list[0]=one&list[1]=two&list[2]=three&list[3]=four"],
+        ["{nested_lists[]}", "one,two,three,four"],
+        ["{?nested_lists[]}", "?nested_lists[0][0]=one&nested_lists[0][1]=two&nested_lists[1][0]=three&nested_lists[2]=four"],
+        ["{keys[]}", [
+          "comma=%2C,dot=.,semi=%3B",
+          "comma=%2C,semi=%3B,dot=.",
+          "dot=.,comma=%2C,semi=%3B",
+          "dot=.,semi=%3B,comma=%2C",
+          "semi=%3B,comma=%2C,dot=.",
+          "semi=%3B,dot=.,comma=%2C"
+        ]],
+        ["{?keys[]}", [
+          "?comma=%2C&dot=.&semi=%3B",
+          "?comma=%2C&semi=%3B&dot=.",
+          "?dot=.&comma=%2C&semi=%3B",
+          "?dot=.&semi=%3B&comma=%2C",
+          "?semi=%3B&comma=%2C&dot=.",
+          "?semi=%3B&dot=.&comma=%2C"
+        ]],
+        ["{nested_keys[]}", [
+          "two[comma]=%2C,one[dot]=.,one[semi]=%3B",
+          "two[comma]=%2C,one[semi]=%3B,one[dot]=.",
+          "one[dot]=.,two[comma]=%2C,one[semi]=%3B",
+          "one[dot]=.,one[semi]=%3B,two[comma]=%2C",
+          "one[semi]=%3B,two[comma]=%2C,one[dot]=.",
+          "one[semi]=%3B,one[dot]=.,two[comma]=%2C"
+        ]],
+        ["{?nested_keys[]}", [
+          "?two[comma]=%2C&one[dot]=.&one[semi]=%3B",
+          "?two[comma]=%2C&one[semi]=%3B&one[dot]=.",
+          "?one[dot]=.&two[comma]=%2C&one[semi]=%3B",
+          "?one[dot]=.&one[semi]=%3B&two[comma]=%2C",
+          "?one[semi]=%3B&two[comma]=%2C&one[dot]=.",
+          "?one[semi]=%3B&one[dot]=.&two[comma]=%2C"
+        ]],
+        ["{mixed[]}", [
+          "list[0]=one,list[1][0]=two,list[1][1]=three,keys[two][comma]=%2C,keys[one][dot]=.,keys[one][semi]=%3B",
+          "list[0]=one,list[1][0]=two,list[1][1]=three,keys[two][comma]=%2C,keys[one][semi]=%3B,keys[one][dot]=.",
+          "list[0]=one,list[1][0]=two,list[1][1]=three,keys[one][dot]=.,keys[two][comma]=%2C,keys[one][semi]=%3B",
+          "list[0]=one,list[1][0]=two,list[1][1]=three,keys[one][dot]=.,keys[one][semi]=%3B,keys[two][comma]=%2C",
+          "list[0]=one,list[1][0]=two,list[1][1]=three,keys[one][semi]=%3B,keys[two][comma]=%2C,keys[one][dot]=.",
+          "list[0]=one,list[1][0]=two,list[1][1]=three,keys[one][semi]=%3B,keys[one][dot]=.,keys[two][comma]=%2C"
+        ]],
+        ["{?mixed[]}", [
+          "?list[0]=one&list[1][0]=two&list[1][1]=three&keys[two][comma]=%2C&keys[one][dot]=.&keys[one][semi]=%3B",
+          "?list[0]=one&list[1][0]=two&list[1][1]=three&keys[two][comma]=%2C&keys[one][semi]=%3B&keys[one][dot]=.",
+          "?list[0]=one&list[1][0]=two&list[1][1]=three&keys[one][dot]=.&keys[two][comma]=%2C&keys[one][semi]=%3B",
+          "?list[0]=one&list[1][0]=two&list[1][1]=three&keys[one][dot]=.&keys[one][semi]=%3B&keys[two][comma]=%2C",
+          "?list[0]=one&list[1][0]=two&list[1][1]=three&keys[one][semi]=%3B&keys[two][comma]=%2C&keys[one][dot]=.",
+          "?list[0]=one&list[1][0]=two&list[1][1]=three&keys[one][semi]=%3B&keys[one][dot]=.&keys[two][comma]=%2C"
+        ]],
+        ["{list_keys[]}", [
+          "dot=.,semi=%3B,comma=%2C",
+          "semi=%3B,dot=.,comma=%2C"
+        ]],
+        ["{?list_keys[]}", [
+          "?list_keys[0][dot]=.&list_keys[0][semi]=%3B&list_keys[1][comma]=%2C",
+          "?list_keys[0][semi]=%3B&list_keys[0][dot]=.&list_keys[1][comma]=%2C"
+        ]]
+     ]
+  }
+}
